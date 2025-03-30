@@ -38,7 +38,7 @@ public class ManifestProcessor : IPreprocessBuild
     private const string PROPERTIES_RELATIVE_PATH =
             "Plugins/Android/GoogleMobileAdsPlugin.androidlib/project.properties";
 
-    private const string METADATA_APPLICATION_ID  =
+    private const string METADATA_APPLICATION_ID =
             "com.google.android.gms.ads.APPLICATION_ID";
 
     private const string METADATA_DELAY_APP_MEASUREMENT_INIT =
@@ -51,7 +51,7 @@ public class ManifestProcessor : IPreprocessBuild
             "com.google.android.gms.ads.flag.OPTIMIZE_AD_LOADING";
 
     // LINT.IfChange
-    private const string METADATA_UNITY_VERSION  = "com.google.unity.ads.UNITY_VERSION";
+    private const string METADATA_UNITY_VERSION = "com.google.unity.ads.UNITY_VERSION";
     // LINT.ThenChange(//depot/google3/javatests/com/google/android/gmscore/integ/modules/admob/tests/robolectric/src/com/google/android/gms/ads/nonagon/signals/StaticDeviceSignalSourceTest.java)
 
     private XNamespace ns = "http://schemas.android.com/apk/res/android";
@@ -93,9 +93,9 @@ public class ManifestProcessor : IPreprocessBuild
         {
             manifest = XDocument.Load(manifestPath);
         }
-        #pragma warning disable 0168
+#pragma warning disable 0168
         catch (IOException e)
-        #pragma warning restore 0168
+#pragma warning restore 0168
         {
             StopBuildWithMessage("AndroidManifest.xml is missing. Try re-importing the plugin.");
         }
@@ -122,7 +122,7 @@ public class ManifestProcessor : IPreprocessBuild
         }
 
         IEnumerable<XElement> metas = elemApplication.Descendants()
-                .Where( elem => elem.Name.LocalName.Equals("meta-data"));
+                .Where(elem => elem.Name.LocalName.Equals("meta-data"));
 
         SetMetadataElement(elemApplication,
                            metas,
@@ -231,11 +231,11 @@ public class ManifestProcessor : IPreprocessBuild
     private void StopBuildWithMessage(string message)
     {
         string prefix = "[GoogleMobileAds] ";
-    #if UNITY_2017_1_OR_NEWER
+#if UNITY_2017_1_OR_NEWER
         throw new BuildPlayerWindow.BuildMethodException(prefix + message);
-    #else
+#else
         throw new OperationCanceledException(prefix + message);
-    #endif
+#endif
     }
 }
 #endif

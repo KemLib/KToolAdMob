@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.kem.ktool": "https://github.com/KemLib/KTool.git?path=/Packages/KTool",
+    "com.kem.ktool": "https://github.com/KemLib/KTool.git?path=/Packages/KTool#develop",
     "com.unity.collab-proxy": "2.7.1",
     "com.unity.feature.2d": "2.0.1",
     "com.unity.ide.rider": "3.0.35",

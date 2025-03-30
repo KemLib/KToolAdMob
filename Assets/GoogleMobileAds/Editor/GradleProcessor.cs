@@ -1,8 +1,7 @@
+using GoogleMobileAds.Editor;
 using System;
 using System.IO;
 using UnityEditor.Android;
-
-using GoogleMobileAds.Editor;
 
 public class GradleProcessor : IPostGenerateGradleAndroidProject
 {
@@ -29,9 +28,9 @@ public class GradleProcessor : IPostGenerateGradleAndroidProject
 
         // Windows path requires '\\'
 #if UNITY_EDITOR_WIN
-        packagingOptionsLauncher = packagingOptionsLauncher.Replace("/","\\\\");
-        packagingOptionsUnityLibrary = packagingOptionsUnityLibrary.Replace("/","\\\\");
-        validateGradleDependencies = validateGradleDependencies.Replace("/","\\\\");
+        packagingOptionsLauncher = packagingOptionsLauncher.Replace("/", "\\\\");
+        packagingOptionsUnityLibrary = packagingOptionsUnityLibrary.Replace("/", "\\\\");
+        validateGradleDependencies = validateGradleDependencies.Replace("/", "\\\\");
 #endif
 
         foreach (var gradlepath in gradleList)

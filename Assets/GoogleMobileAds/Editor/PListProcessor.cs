@@ -137,9 +137,9 @@ public static class PListProcessor
                 }
             }
         }
-        #pragma warning disable 0168
+#pragma warning disable 0168
         catch (FileNotFoundException e)
-        #pragma warning restore 0168
+#pragma warning restore 0168
         {
             NotifyBuildFailure("GoogleMobileAdsSKAdNetworkItems.xml not found", false);
         }

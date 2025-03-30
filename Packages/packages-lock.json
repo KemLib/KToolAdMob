@@ -1,11 +1,11 @@
 {
   "dependencies": {
     "com.kem.ktool": {
-      "version": "https://github.com/KemLib/KTool.git?path=/Packages/KTool",
+      "version": "https://github.com/KemLib/KTool.git?path=/Packages/KTool#develop",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "c114b2785651c76630569d0bd7a6934bbfd2d271"
+      "hash": "f7a1eb16e0c6f631d66cf307613a89be7990103e"
     },
     "com.unity.2d.animation": {
       "version": "9.1.3",
