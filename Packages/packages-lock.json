@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.kem.ktool": {
+      "version": "https://github.com/KemLib/KTool.git?path=/Packages/KTool",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "c114b2785651c76630569d0bd7a6934bbfd2d271"
+    },
     "com.unity.2d.animation": {
       "version": "9.1.3",
       "depth": 1,
@@ -144,7 +151,7 @@
       }
     },
     "com.unity.ide.rider": {
-      "version": "3.0.34",
+      "version": "3.0.35",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -153,7 +160,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.22",
+      "version": "2.0.23",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -243,7 +250,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.textmeshpro": {
-      "version": "3.0.7",
+      "version": "3.0.9",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -252,7 +259,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.7.6",
+      "version": "1.7.7",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -283,7 +290,7 @@
       }
     },
     "com.unity.visualscripting": {
-      "version": "1.9.4",
+      "version": "1.9.6",
       "depth": 0,
       "source": "registry",
       "dependencies": {
