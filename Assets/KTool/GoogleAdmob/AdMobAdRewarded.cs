@@ -29,6 +29,8 @@ namespace KTool.GoogleAdmob
         private TrackEntrySource initTrackEntrySource;
         private AdRewardedTrackingSource adRewardedTrackingSource;
 
+        public event Action OnAdImpressionRecorded;
+
         public bool RequiredConditions => initRequiredConditions;
         public string AdId
         {
@@ -263,7 +265,7 @@ namespace KTool.GoogleAdmob
         }
         private void Ad_OnImpressionRecorded()
         {
-
+            OnAdImpressionRecorded?.Invoke();
         }
         private void Ad_OnReward(Reward reward)
         {

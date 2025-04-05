@@ -33,6 +33,8 @@ namespace KTool.GoogleAdmob
         private bool initEnded;
         private AdInterstitialTrackingSource adInterstitialTrackingSource;
 
+        public event Action OnAdImpressionRecorded;
+
         public bool RequiredConditions => initRequiredConditions;
         public string AdId
         {
@@ -283,7 +285,7 @@ namespace KTool.GoogleAdmob
         }
         private void Ad_OnImpressionRecorded()
         {
-
+            OnAdImpressionRecorded?.Invoke();
         }
         #endregion
     }
