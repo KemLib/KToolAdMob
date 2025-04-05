@@ -1,0 +1,4 @@
+KToolAdmob_version-1.0.0
+KTool_version-1.0.3
+GoogleMobileAds_version-9.6.0
+ExternalDependencyManager_version-1.2.185
