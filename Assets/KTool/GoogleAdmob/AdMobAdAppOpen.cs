@@ -11,8 +11,9 @@ namespace KTool.GoogleAdmob
     public class AdMobAdAppOpen : AdInterstitial, IIniter
     {
         #region Properties
-        private const string ERROR_Load_FAIL = "Ad AppOpen load fail: {0}",
-            ERROR_SHOW_FAIL_AD_NOT_READY = "Ad AppOpen show fail: ad not ready";
+        private const string ERROR_LOAD_FAIL = "Ad AppOpen load fail: {0}",
+            ERROR_SHOW_FAIL_AD_NOT_READY = "Ad AppOpen show fail: ad not ready",
+            ERROR_SHOW_FAIL_AD_IS_SHOWED = "Ad AppOpen show fail: ad is show";
         private const int AD_EXPIRE_HOUR = 4;
 
         [SerializeField]
@@ -138,7 +139,9 @@ namespace KTool.GoogleAdmob
         }
         public override AdInterstitialTracking Show()
         {
-            if (!IsReady || IsShow)
+            if (IsShow)
+                return new AdInterstitialTrackingSource(ERROR_SHOW_FAIL_AD_IS_SHOWED);
+            if (!IsReady)
                 return new AdInterstitialTrackingSource(ERROR_SHOW_FAIL_AD_NOT_READY);
             //
             State = AdState.Show;
@@ -165,7 +168,7 @@ namespace KTool.GoogleAdmob
             isLoading = true;
             attemptLoad = 0;
             //
-            CoroutineManager.Instance.Coroutine_Start(Ad_LoadAd(0));
+            CoroutineManager.Instance.Coroutine_Start(Ad_LoadAd());
         }
         private void Ad_Destroy()
         {
@@ -176,13 +179,19 @@ namespace KTool.GoogleAdmob
             adObject = null;
             State = AdState.Inited;
         }
-        private IEnumerator Ad_LoadAd(float delay)
+        private IEnumerator Ad_LoadAd()
         {
-            if (!AdMobManager.IsInit)
-                delay = Mathf.Max(3, delay);
-            if (delay > 0)
+            if (attemptLoad == 0)
+            {
+                if (!AdMobManager.IsInit)
+                    yield return new WaitForSecondsRealtime(2);
+            }
+            else
+            {
+                float delay = Mathf.Pow(2, attemptLoad);
                 yield return new WaitForSecondsRealtime(delay);
-
+            }
+            //
             if (!AdMobManager.IsInit)
             {
                 PushEvent_Loaded(false);
@@ -194,18 +203,17 @@ namespace KTool.GoogleAdmob
         }
         private void Ad_OnLoadComplete(AppOpenAd adObject, LoadAdError error)
         {
+            isLoading = false;
             if (error != null || adObject == null)
             {
-                Debug.LogError(string.Format(ERROR_Load_FAIL, error.GetMessage()));
-                //
                 attemptLoad = Mathf.Min(attemptLoad + 1, 6);
-                float delay = Mathf.Pow(2, attemptLoad);
-                CoroutineManager.Instance.Coroutine_Start(Ad_LoadAd(delay));
+                Debug.LogError(string.Format(ERROR_LOAD_FAIL, error.GetMessage()));
                 //
                 PushEvent_Loaded(false);
+                if (IsAutoReload)
+                    Ad_Create();
                 return;
             }
-            isLoading = false;
             attemptLoad = 0;
             //
             this.adObject = adObject;

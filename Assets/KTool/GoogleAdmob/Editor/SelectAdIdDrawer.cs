@@ -45,6 +45,9 @@ namespace KTool.GoogleAdmob.Editor
         private string[] GetAdIds()
         {
             AdMobSetting adMobSetting = AdMobSetting.GetInstance();
+            if (adMobSetting == null)
+                return new string[0];
+            //
             SelectAdIdAttribute adIdAttribute = attribute as SelectAdIdAttribute;
             int count = adMobSetting.Ad_Count(adIdAttribute.Type);
             string[] adIds = new string[count];

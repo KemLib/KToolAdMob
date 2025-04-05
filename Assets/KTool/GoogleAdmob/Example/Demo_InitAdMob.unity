@@ -693,10 +693,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   adName: KTool_AdMob_Ad_Banner
   isAutoReload: 1
-  adPosition: 8
-  adSize: 2
+  adPosition: 2
+  adSize: 1
   position: {x: 0, y: 0}
-  size: {x: 0, y: 0}
+  size: {x: 400, y: 300}
   initRequiredConditions: 0
   setInstance: 1
   indexAd: 0
@@ -795,7 +795,7 @@ MonoBehaviour:
     - {fileID: 458022950}
   afterInit: 1
   nextScene: Demo_AdMob
-  loadSceneMode: 0
+  loadSceneMode: 1
 --- !u!4 &1788145012
 Transform:
   m_ObjectHideFlags: 0

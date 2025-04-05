@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using KTool.Advertisement;
+using TMPro;
+using UnityEngine;
 
 namespace KTool.GoogleAdmob.Example
 {
@@ -25,7 +22,6 @@ namespace KTool.GoogleAdmob.Example
         private const string ERROR_ADD_EMPTY = "Ad Banner: No objects to select",
             ERROR_AD_IS_INITED = "Ad Banner: ad is inited",
             ERROR_AD_IS_NOT_INIT = "Ad Banner: ad not init",
-            ERROR_AD_IS_LOADED = "Ad Banner: ad is loaded",
             ERROR_AD_IS_NOT_LOAD = "Ad Banner: ad not load",
             ERROR_AD_IS_NOT_READY = "Ad Banner: ad not ready",
             ERROR_AD_IS_SHOW = "Ad Banner: ad is showed",
@@ -119,8 +115,6 @@ namespace KTool.GoogleAdmob.Example
             //
             if (!SelectAd.IsInited)
                 panelLog.AddLog(ERROR_AD_IS_NOT_INIT);
-            else if (SelectAd.IsLoaded)
-                panelLog.AddLog(ERROR_AD_IS_LOADED);
             else
                 SelectAd.Load();
         }
@@ -135,10 +129,10 @@ namespace KTool.GoogleAdmob.Example
                 panelLog.AddLog(ERROR_AD_IS_NOT_INIT);
             else if (!SelectAd.IsLoaded)
                 panelLog.AddLog(ERROR_AD_IS_NOT_LOAD);
-            else if (!SelectAd.IsReady)
-                panelLog.AddLog(ERROR_AD_IS_NOT_READY);
             else if (SelectAd.IsShow)
                 panelLog.AddLog(ERROR_AD_IS_SHOW);
+            else if (!SelectAd.IsReady)
+                panelLog.AddLog(ERROR_AD_IS_NOT_READY);
             else
                 SelectAd.Show();
         }

@@ -47,7 +47,7 @@ namespace KTool.GoogleAdmob
         }
         public static GoogleMobileAds.Api.AdSize ConvertSize(AdSize adSize)
         {
-            switch(adSize)
+            switch (adSize)
             {
                 case AdSize.Standard:
                     return GoogleMobileAds.Api.AdSize.Banner;
@@ -64,7 +64,7 @@ namespace KTool.GoogleAdmob
         }
         public static GoogleMobileAds.Api.AdPosition ConvertPosition(AdPosition adPosition)
         {
-            switch(adPosition)
+            switch (adPosition)
             {
                 case AdPosition.TopLeft:
                     return GoogleMobileAds.Api.AdPosition.TopLeft;
@@ -82,19 +82,34 @@ namespace KTool.GoogleAdmob
                     return GoogleMobileAds.Api.AdPosition.Bottom;
                 case AdPosition.BotRight:
                     return GoogleMobileAds.Api.AdPosition.BottomRight;
-                default: 
+                default:
                     return GoogleMobileAds.Api.AdPosition.Bottom;
 
             }
         }
-        public static GoogleMobileAds.Api.BannerView Create_AdBanner(string id, AdSize adSize, AdPosition adPosition, Vector2 position)
+        public static GoogleMobileAds.Api.BannerView Create_AdBanner(string id, AdSize adSize, AdPosition adPosition, Vector2 size, Vector2 position)
         {
-            if (adPosition == AdPosition.Custom)
+            if (adSize == AdSize.Custom && adPosition == AdPosition.Custom)
+            {
+                Vector2 admobsize = Convert_UnityToAdMob(size),
+                    admobPosition = Convert_UnityToAdMob(position);
+                GoogleMobileAds.Api.AdSize admobAdSize = new GoogleMobileAds.Api.AdSize((int)admobsize.x, (int)admobsize.y);
+                Vector2Int admobAdPosition = new Vector2Int((int)admobPosition.x, (int)admobPosition.y);
+                return new GoogleMobileAds.Api.BannerView(id, admobAdSize, admobAdPosition.x, admobAdPosition.y);
+            }
+            else if (adSize == AdSize.Custom)
+            {
+                Vector2 admobsize = Convert_UnityToAdMob(size);
+                GoogleMobileAds.Api.AdSize admobAdSize = new GoogleMobileAds.Api.AdSize((int)admobsize.x, (int)admobsize.y);
+                return new GoogleMobileAds.Api.BannerView(id, admobAdSize, ConvertPosition(adPosition));
+            }
+            else if (adPosition == AdPosition.Custom)
             {
                 Vector2 point = Convert_UnityToAdMob(position);
                 return new GoogleMobileAds.Api.BannerView(id, ConvertSize(adSize), (int)point.x, (int)point.y);
             }
-            return new GoogleMobileAds.Api.BannerView(id, ConvertSize(adSize), ConvertPosition(adPosition));
+            else
+                return new GoogleMobileAds.Api.BannerView(id, ConvertSize(adSize), ConvertPosition(adPosition));
         }
         #endregion
 

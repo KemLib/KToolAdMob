@@ -1,6 +1,6 @@
-﻿using UnityEditor;
+﻿using KTool.Advertisement;
+using UnityEditor;
 using UnityEngine;
-using KTool.Advertisement;
 
 namespace KTool.GoogleAdmob.Editor
 {
@@ -14,6 +14,7 @@ namespace KTool.GoogleAdmob.Editor
             propertyAdPosition,
             propertyAdSize,
             propertyPosition,
+            propertySize,
             propertySetInstance,
             propertyInitRequiredConditions,
             propertyIndexAd,
@@ -21,8 +22,8 @@ namespace KTool.GoogleAdmob.Editor
         private AdPosition[] listAdPosition = new AdPosition[] { AdPosition.Custom, AdPosition.TopLeft, AdPosition.TopCenter, AdPosition.TopRight, AdPosition.MidCenter, AdPosition.BotLeft, AdPosition.BotCenter, AdPosition.BotRight };
         private string[] listAdPositionString = new string[] { "Custom", "TopLeft", "Top", "TopRight", "Center", "BottomLeft", "Bottom", "BottomRight" };
         private int indexAdPosition;
-        private AdSize[] listAdSize = new AdSize[] { AdSize.Standard, AdSize.Large, AdSize.Medium, AdSize.FullSize };
-        private string[] listAdSizeString = new string[] { "Banner", "Medium Rectangle", "IABBanner", "Leaderboard" };
+        private AdSize[] listAdSize = new AdSize[] { AdSize.Custom, AdSize.Standard, AdSize.Large, AdSize.Medium, AdSize.FullSize };
+        private string[] listAdSizeString = new string[] { "Custom", "Banner", "Medium Rectangle", "IABBanner", "Leaderboard" };
         private int indexAdSize;
         #endregion
 
@@ -34,6 +35,7 @@ namespace KTool.GoogleAdmob.Editor
             propertyAdPosition = serializedObject.FindProperty("adPosition");
             propertyAdSize = serializedObject.FindProperty("adSize");
             propertyPosition = serializedObject.FindProperty("position");
+            propertySize = serializedObject.FindProperty("size");
             propertySetInstance = serializedObject.FindProperty("setInstance");
             propertyInitRequiredConditions = serializedObject.FindProperty("initRequiredConditions");
             propertyIndexAd = serializedObject.FindProperty("indexAd");
@@ -70,19 +72,23 @@ namespace KTool.GoogleAdmob.Editor
             EditorGUILayout.PropertyField(propertyIsAutoReload, new GUIContent("Auto Reload"));
             EditorGUILayout.PropertyField(propertyIndexAd, new GUIContent("Index Ad"));
             //
-            if(indexAdPosition == -1)
+            if (indexAdPosition == -1)
             {
                 indexAdPosition = 6;
                 propertyAdPosition.enumValueIndex = (int)listAdPosition[indexAdPosition];
             }
             int newIndexAdPosition = EditorGUILayout.Popup(new GUIContent("Ad Position"), indexAdPosition, listAdPositionString);
-            if(newIndexAdPosition != indexAdPosition)
+            if (newIndexAdPosition != indexAdPosition)
             {
                 indexAdPosition = newIndexAdPosition;
                 propertyAdPosition.enumValueIndex = (int)listAdPosition[indexAdPosition];
             }
             if (propertyAdPosition.enumValueIndex == (int)AdPosition.Custom)
+            {
                 EditorGUILayout.PropertyField(propertyPosition, new GUIContent("Position"));
+                Vector2 size = propertyPosition.vector2Value;
+                propertyPosition.vector2Value = new Vector2(Mathf.Max(0, size.x), Mathf.Max(0, size.y));
+            }
             //
             if (indexAdSize == -1)
             {
@@ -94,6 +100,12 @@ namespace KTool.GoogleAdmob.Editor
             {
                 indexAdSize = newIndexAdSize;
                 propertyAdSize.enumValueIndex = (int)listAdSize[indexAdSize];
+            }
+            if (propertyAdSize.enumValueIndex == (int)AdSize.Custom)
+            {
+                EditorGUILayout.PropertyField(propertySize, new GUIContent("Size"));
+                Vector2 size = propertySize.vector2Value;
+                propertySize.vector2Value = new Vector2(Mathf.Max(0, size.x), Mathf.Max(0, size.y));
             }
             //
             EditorGUILayout.PropertyField(propertyShowAfterInit, new GUIContent("Show After Init"));

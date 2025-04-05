@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using KTool.Advertisement;
+using TMPro;
+using UnityEngine;
 
 namespace KTool.GoogleAdmob.Example
 {
@@ -134,10 +131,10 @@ namespace KTool.GoogleAdmob.Example
                 panelLog.AddLog(ERROR_AD_IS_NOT_INIT);
             else if (!SelectAd.IsLoaded)
                 panelLog.AddLog(ERROR_AD_IS_NOT_LOAD);
-            else if (!SelectAd.IsReady)
-                panelLog.AddLog(ERROR_AD_IS_NOT_READY);
             else if (SelectAd.IsShow)
                 panelLog.AddLog(ERROR_AD_IS_SHOW);
+            else if (!SelectAd.IsReady)
+                panelLog.AddLog(ERROR_AD_IS_NOT_READY);
             else
                 SelectAd.Show();
         }
